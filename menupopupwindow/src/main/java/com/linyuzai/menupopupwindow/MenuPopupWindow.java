@@ -54,7 +54,7 @@ public class MenuPopupWindow extends PopupWindow {
             textColor = Color.BLACK;
             textSize = Builder.TEXT_SIZE_DEFAULT;
             background = Color.WHITE;
-            extraHeight = Builder.ITEM_MARGIN_DEFAULT;
+            extraHeight = Builder.EXTRA_HEIGHT_DEFAULT;
         }
 
         public Menu(String text) {
@@ -147,7 +147,7 @@ public class MenuPopupWindow extends PopupWindow {
     public static class Builder {
 
         public static final int TEXT_SIZE_DEFAULT = 18;
-        public static final int ITEM_MARGIN_DEFAULT = 25;
+        public static final int EXTRA_HEIGHT_DEFAULT = 25;
 
         private String title;
         private int titleColor;
@@ -165,7 +165,7 @@ public class MenuPopupWindow extends PopupWindow {
             titleColor = Color.BLACK;
             titleSize = TEXT_SIZE_DEFAULT;
             background = Color.WHITE;
-            menuExtraHeight = ITEM_MARGIN_DEFAULT;
+            menuExtraHeight = EXTRA_HEIGHT_DEFAULT;
             allMenuTextColor = Color.BLACK;
             allMenuTextSize = TEXT_SIZE_DEFAULT;
             allMenuBackground = Color.WHITE;
@@ -197,7 +197,7 @@ public class MenuPopupWindow extends PopupWindow {
                 menu.textColor = (menu.textColor == Color.BLACK ? (allMenuTextColor == Color.BLACK ? Color.BLACK : allMenuTextColor) : menu.textColor);
                 menu.textSize = (menu.textSize == TEXT_SIZE_DEFAULT ? (allMenuTextSize == TEXT_SIZE_DEFAULT ? TEXT_SIZE_DEFAULT : allMenuTextSize) : menu.textSize);
                 menu.background = (menu.background == Color.WHITE ? (allMenuBackground == Color.WHITE ? Color.WHITE : allMenuBackground) : menu.background);
-                menu.extraHeight = (menu.extraHeight == ITEM_MARGIN_DEFAULT ? (menuExtraHeight == ITEM_MARGIN_DEFAULT ? ITEM_MARGIN_DEFAULT : menuExtraHeight) : menu.extraHeight);
+                menu.extraHeight = (menu.extraHeight == EXTRA_HEIGHT_DEFAULT ? (menuExtraHeight == EXTRA_HEIGHT_DEFAULT ? EXTRA_HEIGHT_DEFAULT : menuExtraHeight) : menu.extraHeight);
                 menus.add(menu);
             }
             displayView.setAdapter(new MenuAdapter(menus, divider));
@@ -363,10 +363,9 @@ public class MenuPopupWindow extends PopupWindow {
             } else {
                 final Menu menu = menus.get(position / 2);
                 TextView textView = new TextView(parent.getContext());
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, menu.extraHeight, 0, menu.extraHeight);
-                textView.setLayoutParams(layoutParams);
+                textView.setPadding(0, menu.extraHeight, 0, menu.extraHeight);
+                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
                 textView.setGravity(Gravity.CENTER);
                 textView.setText(menu.text);
                 textView.setTextColor(menu.textColor);

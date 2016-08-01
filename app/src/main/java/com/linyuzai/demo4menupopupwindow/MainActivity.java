@@ -1,5 +1,6 @@
 package com.linyuzai.demo4menupopupwindow;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +19,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.tv);
+        MenuPopupWindow.Menu menu = new MenuPopupWindow.Menu("123");
+        menu.setTextColor(Color.RED);
         popupWindow = MenuPopupWindow.Builder()
                 .setTitle("popup window")
                 .setMenuExtraHeight(35)
+                .setAllMenuBackground(Color.YELLOW)
                 .addMenu("menu1", new Menu1ClickListener())
                 .addMenu("menu2", new Menu2ClickListener())
                 .addMenu("menu3", new Menu3ClickListener())
+                .addMenu(menu)
                 .create(this);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
